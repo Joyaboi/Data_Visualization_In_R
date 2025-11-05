@@ -12,6 +12,9 @@ beep_on_error("wilhelm")
 install.packages("emojifont")
 library("emojifont")
 
+install.packages("plotly")
+library(plotly)
+
 
 ####6.1) Histogram ####
 
@@ -189,14 +192,18 @@ ggplot(penguins, aes(x=species, y = flipper_len, color = island)) +
        color = "Island"
   )
 
+plot_ly(x=penguins$bill_len, y=penguins$flipper_len, z=penguins$bill_dep, type="scatter3d", 
+        mode="markers", color= penguins$bill_len, colors = c("red", "blue"))
 #####B.2#####
 
-
+ggplot(penguins, aes(x = species, y = flipper_len))+
+  geom_boxplot(notch = T)
 
 #####Final Challenge: make something awful#####
 
-ggplot(penguins, aes(x=species, y = flipper_len, color = island)) +
+ggplot(penguins, aes(x=species, y = flipper_len, color = island, label=species)) +
   geom_point(alpha = 0.05) +
+  geom_text(hjust = 0, vjust = 0)+
   geom_emoji("man", color='cyan', alpha = 0.12)+
   scale_colour_manual(values = c("Cyan", "Chartreuse", "Chartreuse"))+
   labs(x = "Penguin Species",
